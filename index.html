@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Star Cosmetics</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+        <img class="pl" src="star.png" alt="StarCosmetis">
+      <h1>Star Cosmetics</h1>
+    </div>
+  </header>
+
+  <section class="product-section">
+    <div class="container">
+      <div class="product-card">
+        <img class="product-img" src="ds.jpg" alt="Stardust Glitter Powder">
+        <h2>Stardust Glitter Powder</h2>
+        <p>Discover the mesmerizing collection of Stardust Glitter Powder, designed to bring out your inner radiance.</p>
+        <button id="showFormButton" class="btn">Order Now</button>
+        <div id="orderForm" class="order-form">
+          <h2>Order Form</h2>
+          <form id="submit-form" action="">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="color" placeholder="Product Color" required>
+            <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+            <p id="totalAmount">Total: $0</p>
+            <input type="hidden" name="totalAmount" id="hiddenTotalAmount">
+            <button type="submit" class="btn">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2023 Star Cosmetics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const showFormButton = document.getElementById("showFormButton");
+    const orderForm = document.getElementById("orderForm");
+    const quantityInput = document.getElementById("quantity");
+    const totalAmount = document.getElementById("totalAmount");
+    const hiddenTotalAmount = document.getElementById("hiddenTotalAmount");
+
+    showFormButton.addEventListener("click", function() {
+      orderForm.style.display = "block";
+    });
+
+    quantityInput.addEventListener("input", function() {
+      const quantity = parseInt(this.value);
+      const realPrice = 5000; // Real price of the product
+      const discountPrice = 2500; // Discounted price of the product
+
+      const total = quantity * discountPrice;
+
+      totalAmount.textContent = `Total: $${total}`;
+      hiddenTotalAmount.value = total;
+    });
+  </script>
+
+<script>
+    $("#submit-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:"https://script.google.com/macros/s/AKfycbxT_JdP8YopNQ2T8JY4jZYgBHyfpwy05KMQEM3gFzVQTonQ7XoB2E95PU367tOIyWzscw/exec",
+            data:$("#submit-form").serialize(),
+            method:"post",
+            success:function (response){
+                alert("Order placed successfully\nReady to Shine on!")
+                window.location.reload()
+            },
+            error:function (err){
+                alert("Something Error")
+
+            }
+        })
+    })
+</script>
+</body>
+</html>
